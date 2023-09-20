@@ -39,8 +39,10 @@ public class AccountServiceImpl implements AccountService {
 	{
 		Optional<Customer> customer = customerRepository.findById(account.getCustomer().getCustomerID());
 		// TODO Auto-generated method stub
-		if(customer.isPresent())
+		if(customer.isPresent()) {
+			account.setCustomer(customer.get());
 			return accountRepository.save(account);
+		}
 		else
 			customer.orElseThrow(() -> new IdNotFoundException("Customer Id is not valid"));
 		return null;

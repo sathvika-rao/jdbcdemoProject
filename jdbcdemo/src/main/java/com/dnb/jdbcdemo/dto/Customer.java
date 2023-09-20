@@ -11,6 +11,8 @@ import com.dnb.jdbcdemo.exceptions.InvalidContactNumberException;
 import com.dnb.jdbcdemo.exceptions.InvalidGovernmentIdException;
 import com.dnb.jdbcdemo.exceptions.InvalidIdException;
 import com.dnb.jdbcdemo.exceptions.InvalidNameException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,15 +36,17 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int customerID;
 	private String customerName;
 	private String customerContactNumber;
 	private String customerAddress;
 	private String customerPAN;
 	private String customerUUID;
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "customer")
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
+	//@JsonIgnore
+	@JsonIgnoreProperties("customer")
+	//@JsonIgnoreProperties({"customer", "hibernateLazyInitializer"})
 	private List<Account> accountList = new ArrayList<>();
 }
 

@@ -83,7 +83,7 @@ public class CustomerController {
 	
 	
 	
-	@DeleteMapping("/{customerID}")
+	@DeleteMapping("/delete/{customerID}")
 	public ResponseEntity<?> deleteCustomerById(@PathVariable("customerID") int customerID) throws IdNotFoundException, InvalidIdException {
 		if(customerService.deleteCustomerById(customerID)) {
 			return ResponseEntity.noContent().build();

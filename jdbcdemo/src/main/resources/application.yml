@@ -14,7 +14,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
 server:
   port: 9005
   error:

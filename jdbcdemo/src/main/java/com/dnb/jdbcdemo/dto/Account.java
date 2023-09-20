@@ -17,6 +17,8 @@ import com.dnb.jdbcdemo.exceptions.InvalidIdException;
 import com.dnb.jdbcdemo.exceptions.InvalidNameException;
 import com.dnb.jdbcdemo.exceptions.InvalidValueException;
 import com.dnb.jdbcdemo.utils.CustomAccountIdGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -75,8 +77,11 @@ public class Account {
 	private LocalDate dob;
 	private boolean accountStatus;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_ID", referencedColumnName = "customerID")
+	//@JsonIgnore
+	@JsonIgnoreProperties("accountList")
+	//@JsonIgnoreProperties({"account", "hibernateLazyInitializer"})
 	private Customer customer;
 	//private int customerID;
 	
